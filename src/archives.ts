@@ -252,3 +252,135 @@ const val2 = 10;
 
 const result = val1 && val2;
 console.log(val2);
+
+//code examples in archives.ts
+namespace constants {
+  const val2 = [];
+  val2.push(1);
+  console.log(val2);
+}
+
+const myFunc = (message: string): void => {
+  console.log(message);
+};
+myFunc("32");
+
+const func = () => console.log("func");
+const func1 = () => ({ name: "di" });
+const func2 = () => {
+  const val = 20;
+  return val;
+};
+
+console.log(func());
+console.log(func1());
+console.log(func2());
+
+
+
+//changing the this context
+
+//apply
+//call
+//bind - often used in reactcomponents
+
+class A {
+  name: string = "A";
+  go() {
+    console.log(this.name);
+  }
+}
+
+class B {
+  name: string = "B";
+  go() {
+    console.log(this.name);
+  }
+}
+
+const a = new A();
+a.go();
+const b = new B();
+b.go = b.go.bind(a);
+b.go();
+
+//A , A
+
+
+//call example
+
+const callerObj = {
+  name: "jon"
+};
+function checkMyThis(age) {
+  console.log(`What is this ${this}`);
+  console.log(`Do I have a name? ${this.name}`);
+  this.age = age;
+  console.log(`What is my age ${this.age}`);
+}
+
+checkMyThis();
+checkMyThis.call(callerObj, 25);
+
+//apply is similar but instead of an element, it's an array of elements;
+
+//spread,destructuring and rest
+//Spread,Object.assign and Array concat
+
+namespace NamespaceA {
+  class A {
+    aname: string = "A";
+  }
+  class B {
+    bname: string = "B";
+  }
+  const a = new A();
+  const b = new B();
+
+  const c = { ...a, ...b };
+  const d = Object.assign(a, b);
+
+  console.log(c);
+  console.log(d);
+
+  a.name = "a1";
+  console.log(c);
+  console.log(d);
+}
+//concat and spreading creates new arrays
+namespace SpreadArray {
+  const a = [1, 2, 3];
+  const b = [4, 5, 6];
+
+  const c = [...a, ...b];
+  const d = a.concat(b);
+
+  console.log("c before", c);
+  console.log("d before", d);
+
+  a.push(10);
+  console.log("a", a);
+  console.log("c after", c);
+  console.log("d after", d);
+}
+
+//destructuring
+//use internal properties of an object
+
+function getEmployee(id) {
+  return {
+    name: "John",
+    age: 35,
+    address: "123 St",
+    country: "United States"
+  };
+}
+const { name: fullName, age } = getEmployee(22);
+console.log("employee", fullName, age);
+
+function getEmployeeWorkInfo(id) {
+  return [id, "Office", "France"];
+}
+
+const [id, officeAddress] = getEmployeeWorkInfo("34242");
+console.log("employee", id, officeAddress);
